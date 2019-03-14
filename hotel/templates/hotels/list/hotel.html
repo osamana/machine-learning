@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="container-fluid">
+        <h1 class="my-5 text-center">List of Hotels</h1>
+        <div class="alert alert-info">
+            <strong>Info!</strong> This is a list of hotels with associated reviews, these will be used for
+            demonstration.
+        </div>
+
+        {% if is_paginated %}
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    {% if page_obj.has_previous %}
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+                        </li>
+                    {% else %}
+                        {#                        <li class="page-item disabled"><span>&laquo;</span></li>#}
+                    {% endif %}
+                    {% for i in paginator.page_range %}
+                        {% if page_obj.number == i %}
+                            <li class="page-item active" aria-current="page">
+                                <a class="page-link" href="#">{{ i }} <span class="sr-only">(current)</span></a>
+                            </li>
+                        {% else %}
+                            <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if page_obj.has_next %}
+                        <li class="page-item"><a class="page-link"
+                                                 href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+                    {% else %}
+                        {#                        <li class="page-item disabled"><span>&raquo;</span></li>#}
+                    {% endif %}
+                </ul>
+            </nav>
+        {% endif %}
+
+        <ul class="list-group">
+
+            {% for hotel in hotels %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <a href="{{ hotel.get_absolute_url }}">{{ hotel.name }}</a>
+                    <span class="badge badge-primary badge-pill">{{ hotel.reviews_count }} reviews</span>
+                </li>
+            {% endfor %}
+        </ul>
+
+    </div>
+{% endblock %}

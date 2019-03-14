@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="container-fluid">
+        <h1 class="my-5 text-center">Administration <i class="fas fa-user-lock"></i></h1>
+
+        <div class="alert alert-info">
+            <strong>Info!</strong> These predictions depend highly on the provided training data.
+        </div>
+
+        <a class="btn btn-primary mb-5" href="{% url "admin-portal" %}">Go back</a>
+
+        <div class="row">
+            <div class="col">
+                <p>
+                <h3>Sampled text</h3>
+                <p class="card card-body">{{ text }}</p>
+
+                <h3>Prediction result</h3>
+                </p>
+                {% for p in p_list %}
+                    <p>{{ p.0 }} stars: <strong>{{ p.1 }}</strong></p>
+                {% endfor %}
+
+            </div>
+
+
+        </div>
+
+    </div>
+{% endblock %}

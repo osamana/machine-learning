@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="container-fluid">
+        <h1 class="my-5 text-center"><a href="{% url "hotel-list" %}">Hotel list</a> / {{ hotel.name }}</h1>
+        <div class="alert alert-info">
+            <strong>Info!</strong> This page shows details about the hotels, including it's user reviews.
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <ul class="list-group">
+
+                    {% for review in reviews %}
+                        <div class="card">
+                            <div class="card-body">
+                                <p>
+                                    {% for i in review.get_ratings_range %}
+                                        <i class="fas fa-star"></i>
+                                    {% endfor %}
+
+                                </p>
+                                {{ review.review_text }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col">
+                <form action="{% url "add-review" %}" method="post" class="">
+                    {% csrf_token %}
+                    {{ add_review_form.as_p }}
+                    <input type="submit" value="Add review" class="btn btn-primary">
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+{% endblock %}

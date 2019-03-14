@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="container-fluid">
+        <h1 class="my-5 text-center">Social posts (for demonstration)</h1>
+
+        <div class="alert alert-info">
+            <strong>Info!</strong> This page shows a list of posts mentioning different hotels, these posts will be used
+            as if they're just like
+            twitter or facebook.
+        </div>
+
+
+        <div class="row">
+            <div class="col">
+                {% if is_paginated %}
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            {% if page_obj.has_previous %}
+                                <li class="page-item"><a class="page-link"
+                                                         href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+                                </li>
+                            {% else %}
+                                {#                        <li class="page-item disabled"><span>&laquo;</span></li>#}
+                            {% endif %}
+                            {% for i in paginator.page_range %}
+                                {% if page_obj.number == i %}
+                                    <li class="page-item active" aria-current="page">
+                                        <a class="page-link" href="#">{{ i }} <span class="sr-only">(current)</span></a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if page_obj.has_next %}
+                                <li class="page-item"><a class="page-link"
+                                                         href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+                            {% else %}
+                                {#                        <li class="page-item disabled"><span>&raquo;</span></li>#}
+                            {% endif %}
+                        </ul>
+                    </nav>
+                {% endif %}
+
+                <ul class="list-group">
+
+                    {% for post in posts %}
+
+                        <div class="card">
+                            <div class="card-body">
+                                {{ post.text }}
+                                <div class="likes"><i class="fas fa-heart"></i> {{ post.likes }}</div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </ul>
+
+            </div>
+
+            <div class="col">
+                <form action="{% url "add-post" %}" method="post" class="">
+                    {% csrf_token %}
+                    {{ post_add_form.as_p }}
+                    <input type="submit" value="Post" class="btn btn-primary">
+                </form>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
