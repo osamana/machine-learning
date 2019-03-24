@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load sekizai_tags static %}
 
 {% block content %}
 
@@ -11,31 +12,104 @@
         <div class="row">
             <div class="col">
                 <ul class="list-group">
-
+<h3>Reviews</h3>
                     {% for review in reviews %}
                         <div class="card">
                             <div class="card-body">
-                                <p>
-                                    {% for i in review.get_ratings_range %}
-                                        <i class="fas fa-star"></i>
-                                    {% endfor %}
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        {% for i in review.get_ratings_range %}
+                                            <i class="fas fa-star"></i>
+                                        {% endfor %}
+                                    </div>
+                                    {#                                    <div>{{ review.members }} people</div>#}
+                                    <div>
+                                        {% if review.members == 1 %}
+                                            {{ review.members }} X <i class="fas fa-user"></i>
+                                        {% elif review.members < 3 %}
+                                            {{ review.members }} X <i class="fas fa-user-friends"></i>
+                                        {% else %}
+                                            {{ review.members }} X <i class="fas fa-users"></i>
+                                        {% endif %}
+                                    </div>
+                                    <div>{{ review.nights }} nights</div>
 
-                                </p>
-                                {{ review.review_text }}
+                                </div>
+                                <div class="mt-3">{{ review.review_text }}</div>
+
+
                             </div>
                         </div>
                     {% endfor %}
                 </ul>
             </div>
             <div class="col">
-                <form action="{% url "add-review" %}" method="post" class="">
-                    {% csrf_token %}
-                    {{ add_review_form.as_p }}
-                    <input type="submit" value="Add review" class="btn btn-primary">
-                </form>
+                <div class="row mb-5">
+                    <div class="col">
+                        {#                        {{ hotel.data_1 }}#}
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <h3>Average rating per resident group</h3>
+                                <canvas id="myChart" width="400" height="400"></canvas>
+
+                            </div>
+                        </div>
+                        {% addtoblock 'js' %}
+                            <script>
+                                var ctx = document.getElementById('myChart').getContext('2d');
+                                var myChart = new Chart(ctx, {
+                                    type: 'bar',
+                                    data: {
+                                        labels: [
+                                            {#'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'#}
+                                            {% for key, value in hotel.data_1.items %}
+                                                '{{ key }} X people',
+                                            {% endfor %}
+                                        ],
+                                        datasets: [{
+                                            label: 'Average rating per group',
+                                            data: [
+                                                {% for key, value in hotel.data_1.items %}
+                                                    {{ value }},
+                                                {% endfor %}
+                                            ],
+                                            backgroundColor: 'rgba(0, 123, 255,0.6)',
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        scales: {
+                                            yAxes: [{
+                                                ticks: {
+                                                    beginAtZero: false
+                                                }
+                                            }]
+                                        }
+                                    }
+                                });
+                            </script>
+                        {% endaddtoblock %}
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <h3>Make a review</h3>
+                                <form action="{% url "add-review" %}" method="post" class="">
+                                    {% csrf_token %}
+                                    {{ add_review_form.as_p }}
+                                    <input type="submit" value="Add review" class="btn btn-primary">
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
         </div>
-
 
     </div>
 {% endblock %}

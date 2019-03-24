@@ -1,4 +1,4 @@
-{% load static %}
+{% load static sekizai_tags %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,6 +32,8 @@
             <a href="{% url "hotel-list" %}" class="list-group-item list-group-item-action bg-light"><i class="fas fa-list-ul"></i> Hotels List</a>
             <a href="{% url "post-list" %}" class="list-group-item list-group-item-action bg-light">Social media (Demo)</a>
             <a href="{% url "admin-portal" %}" class="list-group-item list-group-item-action bg-light"><i class="fas fa-lock"></i> Administration</a>
+            <a href="{% url "top-hotels" %}" class="list-group-item list-group-item-action bg-light"><i class="fas fa-star"></i> Best Hotels</a>
+            <a href="{% url "worse-hotels" %}" class="list-group-item list-group-item-action bg-light">Worse Hotels</a>
         </div>
     </div>
     <!-- /#sidebar-wrapper -->
@@ -91,6 +93,9 @@
         $("#wrapper").toggleClass("toggled");
     });
 </script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
+
+{% render_block 'js' %}
 
 </body>
 

@@ -9,7 +9,6 @@ import os
 from django.urls import reverse
 
 
-
 # Create your views here.
 class HotelListView(ListView):
     http_method_names = [u'get']
@@ -18,6 +17,22 @@ class HotelListView(ListView):
     allow_empty = False
     paginate_by = 50
     model = Hotel
+
+
+class TopHotelsListView(HotelListView):
+    template_name = "hotels/list/top_hotels.html"
+
+    def get_queryset(self):
+        qs = super(TopHotelsListView, self).get_queryset()
+        return qs.order_by('-rating')
+
+
+class WorseHotelsListView(HotelListView):
+    template_name = "hotels/list/worse_hotels.html"
+
+    def get_queryset(self):
+        qs = super(WorseHotelsListView, self).get_queryset()
+        return qs.order_by('rating')
 
 
 class HotelDetailView(DetailView):
@@ -60,7 +75,9 @@ def add_review(request):
             Review.objects.create(
                 hotel=target_hotel,
                 rating=form.cleaned_data["rating"],
-                review_text=form.cleaned_data["review"]
+                review_text=form.cleaned_data["review"],
+                nights=form.cleaned_data['nights'],
+                members=form.cleaned_data['members']
             )
 
             # redirect to a new URL:

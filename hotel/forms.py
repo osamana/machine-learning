@@ -7,6 +7,16 @@ class AddReviewForm(forms.Form):
             'class': 'form-control',
         }
     ), label="Rating", required=True)
+    members = forms.IntegerField(widget=forms.TextInput(
+        attrs={
+            'class': 'form-control',
+        }
+    ), label="No. of people", required=True)
+    nights = forms.IntegerField(widget=forms.TextInput(
+        attrs={
+            'class': 'form-control',
+        }
+    ), label="Nights", required=True)
     review = forms.CharField(widget=forms.Textarea(
         attrs={
             'class': 'form-control',

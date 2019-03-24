@@ -3,7 +3,7 @@
 {% block content %}
 
     <div class="container-fluid">
-        <h1 class="my-5 text-center">List of Hotels</h1>
+        <h1 class="my-5 text-center">{% block title %}List of Hotels{% endblock %}</h1>
         <div class="alert alert-info">
             <strong>Info!</strong> This is a list of hotels with associated reviews, these will be used for
             demonstration.
@@ -41,8 +41,13 @@
 
             {% for hotel in hotels %}
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <a href="{{ hotel.get_absolute_url }}">{{ hotel.name }}</a>
-                    <span class="badge badge-primary badge-pill">{{ hotel.reviews_count }} reviews</span>
+                    <a class="w-25" href="{{ hotel.get_absolute_url }}">{{ hotel.name }}</a>
+                    <span>{{ hotel.get_rating_5 }} stars</span>
+                    <span>{{ hotel.residences }} X <i class="fas fa-user"></i></span>
+                    <span>{{ hotel.nights }} X <i class="fas fa-moon"></i></span>
+                    <span class="{#badge badge-primary badge-pill#}">{{ hotel.reviews_count }} reviews</span>
+                    <span class="{#badge badge-primary badge-pill#}">{{ hotel.avg_members_per_stay }} ppl/stay</span>
+                    <span class="{#badge badge-primary badge-pill#}">{{ hotel.avg_nights_per_stay }} nights/stay</span>
                 </li>
             {% endfor %}
         </ul>
