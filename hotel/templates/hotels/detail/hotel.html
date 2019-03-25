@@ -92,21 +92,21 @@
 
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="card bg-light">
-                            <div class="card-body">
-                                <h3>Make a review</h3>
-                                <form action="{% url "add-review" %}" method="post" class="">
-                                    {% csrf_token %}
-                                    {{ add_review_form.as_p }}
-                                    <input type="submit" value="Add review" class="btn btn-primary">
-                                </form>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
+{#                <div class="row">#}
+{#                    <div class="col">#}
+{#                        <div class="card bg-light">#}
+{#                            <div class="card-body">#}
+{#                                <h3>Make a review</h3>#}
+{#                                <form action="{% url "add-review" %}" method="post" class="">#}
+{#                                    {% csrf_token %}#}
+{#                                    {{ add_review_form.as_p }}#}
+{#                                    <input type="submit" value="Add review" class="btn btn-primary">#}
+{#                                </form>#}
+{#                            </div>#}
+{#                        </div>#}
+{##}
+{#                    </div>#}
+{#                </div>#}
 
             </div>
         </div>

@@ -8,6 +8,7 @@ from django.conf import settings
 import os
 from django.urls import reverse
 
+RESIDENCES_CARE_LIMIT = 500
 
 # Create your views here.
 class HotelListView(ListView):
@@ -24,6 +25,7 @@ class TopHotelsListView(HotelListView):
 
     def get_queryset(self):
         qs = super(TopHotelsListView, self).get_queryset()
+        qs = qs.exclude(residences__lte=RESIDENCES_CARE_LIMIT)
         return qs.order_by('-rating')
 
 
@@ -32,6 +34,7 @@ class WorseHotelsListView(HotelListView):
 
     def get_queryset(self):
         qs = super(WorseHotelsListView, self).get_queryset()
+        qs = qs.exclude(residences__lte=RESIDENCES_CARE_LIMIT)
         return qs.order_by('rating')
 
 

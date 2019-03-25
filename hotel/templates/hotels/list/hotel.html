@@ -38,16 +38,22 @@
         {% endif %}
 
         <ul class="list-group">
-
+            <li class="list-group-item d-flex justify-content-between align-items-center bg-light">
+                <span class="w-25">Hotel Name</span>
+                <span>Average Rating</span>
+                <span>Total residences</span>
+                <span>Nights stayed</span>
+                <span>Reviews</span>
+            </li>
             {% for hotel in hotels %}
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <a class="w-25" href="{{ hotel.get_absolute_url }}">{{ hotel.name }}</a>
+                <li class="list-group-item d-flex justify-content-between align-items-center {% if hotel.residences < 500 %}bg-light{% endif %}">
+                    <a class="w-25" href="{{ hotel.get_absolute_url }}">{{ hotel.name }} {% if hotel.residences < 500 %}(Data insufficient){% endif %}</a>
                     <span>{{ hotel.get_rating_5 }} stars</span>
                     <span>{{ hotel.residences }} X <i class="fas fa-user"></i></span>
                     <span>{{ hotel.nights }} X <i class="fas fa-moon"></i></span>
-                    <span class="{#badge badge-primary badge-pill#}">{{ hotel.reviews_count }} reviews</span>
-                    <span class="{#badge badge-primary badge-pill#}">{{ hotel.avg_members_per_stay }} ppl/stay</span>
-                    <span class="{#badge badge-primary badge-pill#}">{{ hotel.avg_nights_per_stay }} nights/stay</span>
+                    <span class="{#badge badge-primary badge-pill#}">{{ hotel.reviews_count }}</span>
+                    {#                    <span class="">{{ hotel.avg_members_per_stay }} ppl/stay</span>#}
+                    {#                    <span class="">{{ hotel.avg_nights_per_stay }} nights/stay</span>#}
                 </li>
             {% endfor %}
         </ul>
