@@ -44,15 +44,23 @@
                 <span>Total residences</span>
                 <span>Nights stayed</span>
                 <span>Reviews</span>
+                <span>Relative Rating Accuracy</span>
             </li>
             {% for hotel in hotels %}
                 <li class="list-group-item d-flex justify-content-between align-items-center {% if hotel.residences < 500 %}bg-light{% endif %}">
-                    <a class="w-25" href="{{ hotel.get_absolute_url }}">{{ hotel.name }} {% if hotel.residences < 500 %}(Data insufficient){% endif %}</a>
+                    <a class="w-25" href="{{ hotel.get_absolute_url }}">{{ hotel.name }} {% if hotel.residences < 500 %}
+                        (Data insufficient){% endif %}</a>
                     <span>{{ hotel.get_rating_5 }} stars</span>
                     <span>{{ hotel.residences }} X <i class="fas fa-user"></i></span>
                     <span>{{ hotel.nights }} X <i class="fas fa-moon"></i></span>
                     <span class="{#badge badge-primary badge-pill#}">{{ hotel.reviews_count }}</span>
-                    {#                    <span class="">{{ hotel.avg_members_per_stay }} ppl/stay</span>#}
+                    <span class="">
+                        {% if hotel.rating_accuracy == 9999 %}
+                            TRM
+                        {% else %}
+                            {{ hotel.rating_accuracy }}%
+                        {% endif %}
+                    </span>
                     {#                    <span class="">{{ hotel.avg_nights_per_stay }} nights/stay</span>#}
                 </li>
             {% endfor %}

@@ -16,6 +16,7 @@ class Hotel(models.Model):
     residences = models.IntegerField(default=0)
 
     nights = models.IntegerField(default=0)
+    rating_accuracy = models.IntegerField(default=0)
 
     data_1 = PickledObjectField(blank=True, null=True)
 
@@ -86,6 +87,31 @@ class Hotel(models.Model):
         # self.avg_nights_per_stay = round(average_nights_per_stay, 1)
         self.avg_nights_per_stay = round(average_nights_per_stay, 1)
         # self.save()
+
+    def calculate_rating_accuracy(self, data):
+        """
+        call this after calculating self.nights and self.residences
+        """
+        query = self.reviews.all()
+        stays = self.reviews.count()  # same number as reviews (each review record is a stay)
+
+        # accuracy by nights
+        abn = (float(self.nights) - float(data['min_hotel_nights'])) / (float(data['max_hotel_nights']) - float(data['min_hotel_nights']))
+        abn *= 100.0
+
+        # accuracy by residences
+        abr = (float(self.residences) - float(data['min_hotel_residences'])) / (float(data['max_hotel_residences']) - float(data['min_hotel_residences']))
+        abr *= 100.0
+
+        # combined accuracy
+        ca = (abn + abr) / 2.0
+
+        ca = int(ca)
+        if ca > 100:
+            ca = 9999
+        if ca < 0:
+            ca = 9999
+        self.rating_accuracy = ca
 
     def plot_membercount_avgrating(self):
         data = {}
