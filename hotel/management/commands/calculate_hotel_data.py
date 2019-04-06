@@ -50,10 +50,6 @@ class Command(BaseCommand):
             #
             # hotel.save()  # must save (above methods don't commit to database)
 
-
-
-
-
             hotel.calculate_rating_accuracy(data)
             hotel.save()
 
