@@ -1,0 +1,52 @@
+{% load sekizai_tags static %}
+{% for key, value in hotel.word_ocr_groups.items %}
+    <div class="my-3">
+        {#            <strong>{{ key }} X people</strong>#}
+        {#            <p>{{ value }}</p>#}
+
+        {% with data=value %}
+            <div class="card">
+                <div class="card-body">
+                    <h3>Keywords in reviews - {{ key }} Members</h3>
+                    <canvas id="anotherChart{{ key }}" width="400" height="200"></canvas>
+
+                </div>
+            </div>
+            {% addtoblock 'js' %}
+                <script>
+                    var ctx = document.getElementById('anotherChart{{ key }}').getContext('2d');
+                    var anotherChart{{ key }} = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: [
+                                {#'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'#}
+                                {% for key, value in data.items %}
+                                    '{{ key }}',
+                                {% endfor %}
+                            ],
+                            datasets: [{
+                                label: 'Occurrences of phrase',
+                                data: [
+                                    {% for key, value in data.items %}
+                                        {{ value }},
+                                    {% endfor %}
+                                ],
+                                backgroundColor: 'rgba(0, 123, 124,0.6)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: false
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                </script>
+            {% endaddtoblock %}
+        {% endwith %}
+    </div>
+{% endfor %}

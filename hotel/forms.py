@@ -1,4 +1,5 @@
 from django import forms
+from . import models
 
 
 class AddReviewForm(forms.Form):
@@ -44,3 +45,19 @@ class TestTextForm(forms.Form):
             'class': 'form-control',
         }
     ), label="Experimental text", required=True)
+
+
+class SendMessageForm(forms.ModelForm):
+    class Meta:
+        model = models.HotelMessage
+        fields = "__all__"
+        widgets = {
+            # 'hotel': forms.Select(attrs={'class': 'form-control'}),
+
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(SendMessageForm, self).__init__(*args, **kwargs)
+
+        for f in self.fields:
+            self.fields[f].widget.attrs['class'] = 'form-control'

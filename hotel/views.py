@@ -1,14 +1,17 @@
 from django.shortcuts import render
 from django.views.generic import DetailView, ListView, RedirectView, UpdateView, CreateView, FormView, TemplateView
-from .models import Hotel, Review, Post
-from .forms import AddReviewForm, PostAddFrom, TestTextForm
+from .models import Hotel, Review, Post, HotelMessage
+from .forms import AddReviewForm, PostAddFrom, TestTextForm, SendMessageForm
 from django.shortcuts import redirect
 import fasttext
 from django.conf import settings
 import os
+from django.contrib import messages
+
 from django.urls import reverse
 
 RESIDENCES_CARE_LIMIT = 500
+
 
 # Create your views here.
 class HotelListView(ListView):
@@ -49,6 +52,7 @@ class HotelDetailView(DetailView):
         context['reviews'] = self.object.reviews.order_by("-id")
         hotel_id = self.object.id
         context['add_review_form'] = AddReviewForm(initial={"hotel_id": hotel_id})
+        context['message_form'] = SendMessageForm(initial={'hotel': hotel_id})
         return context
 
 
@@ -89,6 +93,33 @@ def add_review(request):
     # if a GET (or any other method) we'll create a blank form
     else:
         form = AddReviewForm()
+
+    return redirect("hotel-list")
+
+
+def contact_hotel(request):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = SendMessageForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            target_hotel = form.cleaned_data['hotel']
+
+            HotelMessage.objects.create(
+                hotel=target_hotel,
+                subject=form.cleaned_data["subject"],
+                body=form.cleaned_data["body"],
+            )
+            messages.add_message(request, messages.SUCCESS, 'Message was sent.')
+
+            # redirect to a new URL:
+            return redirect(target_hotel)
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = SendMessageForm()
 
     return redirect("hotel-list")
 

@@ -19,6 +19,8 @@ class Hotel(models.Model):
     rating_accuracy = models.IntegerField(default=0)
 
     data_1 = PickledObjectField(blank=True, null=True)
+    word_ocr = PickledObjectField(blank=True, null=True)  # in general and for all groups of members
+    word_ocr_groups = PickledObjectField(blank=True, null=True)  # per group
 
     def __repr__(self):
         return f'<Hotel: {self.name}>'
@@ -124,6 +126,11 @@ class Hotel(models.Model):
         self.data_1 = data
         return data
 
+
+class HotelMessage(models.Model):
+    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
+    subject = models.CharField(verbose_name="Message Subject", max_length=255, blank=False)
+    body = models.TextField(verbose_name="Body", blank=False)
 
 class Review(models.Model):
     rating = models.SmallIntegerField(verbose_name="Rating", blank=False, null=False)

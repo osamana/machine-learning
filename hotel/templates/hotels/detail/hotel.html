@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col">
                 <ul class="list-group">
-<h3>Reviews</h3>
+                    <h3>Reviews</h3>
                     {% for review in reviews %}
                         <div class="card">
                             <div class="card-body">
@@ -50,7 +50,7 @@
                         <div class="card bg-light">
                             <div class="card-body">
                                 <h3>Average rating per resident group</h3>
-                                <canvas id="myChart" width="400" height="400"></canvas>
+                                <canvas id="myChart" width="400" height="250"></canvas>
 
                             </div>
                         </div>
@@ -92,21 +92,91 @@
 
                     </div>
                 </div>
-{#                <div class="row">#}
-{#                    <div class="col">#}
-{#                        <div class="card bg-light">#}
-{#                            <div class="card-body">#}
-{#                                <h3>Make a review</h3>#}
-{#                                <form action="{% url "add-review" %}" method="post" class="">#}
-{#                                    {% csrf_token %}#}
-{#                                    {{ add_review_form.as_p }}#}
-{#                                    <input type="submit" value="Add review" class="btn btn-primary">#}
-{#                                </form>#}
-{#                            </div>#}
-{#                        </div>#}
-{##}
-{#                    </div>#}
-{#                </div>#}
+
+
+                <div class="row mb-5">
+                    <div class="col">
+                        {#                        {{ hotel.data_1 }}#}
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <h3>Overall keywords in reviews</h3>
+                                <canvas id="myChart2" width="400" height="250"></canvas>
+
+                            </div>
+                        </div>
+                        {% addtoblock 'js' %}
+                            <script>
+                                var ctx = document.getElementById('myChart2').getContext('2d');
+                                var myChart2 = new Chart(ctx, {
+                                    type: 'bar',
+                                    data: {
+                                        labels: [
+                                            {#'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'#}
+                                            {% for key, value in hotel.word_ocr.items %}
+                                                '{{ key }}',
+                                            {% endfor %}
+                                        ],
+                                        datasets: [{
+                                            label: 'Occurrences of phrase',
+                                            data: [
+                                                {% for key, value in hotel.word_ocr.items %}
+                                                    {{ value }},
+                                                {% endfor %}
+                                            ],
+                                            backgroundColor: 'rgba(0, 123, 255,0.6)',
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        scales: {
+                                            yAxes: [{
+                                                ticks: {
+                                                    beginAtZero: false
+                                                }
+                                            }]
+                                        }
+                                    }
+                                });
+                            </script>
+                        {% endaddtoblock %}
+
+                    </div>
+                </div>
+                {#                <div class="row">#}
+                {#                    <div class="col">#}
+                {#                        <div class="card bg-light">#}
+                {#                            <div class="card-body">#}
+                {#                                <h3>Make a review</h3>#}
+                {#                                <form action="{% url "add-review" %}" method="post" class="">#}
+                {#                                    {% csrf_token %}#}
+                {#                                    {{ add_review_form.as_p }}#}
+                {#                                    <input type="submit" value="Add review" class="btn btn-primary">#}
+                {#                                </form>#}
+                {#                            </div>#}
+                {#                        </div>#}
+                {##}
+                {#                    </div>#}
+                {#                </div>#}
+                <div class="row">
+                    <div class="col">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <h3><i class="far fa-envelope"></i> Email this hotel</h3>
+                                <form action="{% url "contact-hotel" %}" method="post" class="">
+                                    {% csrf_token %}
+                                    {{ message_form.as_p }}
+                                    <input type="submit" value="Send Message" class="btn btn-primary">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        {% include "includes/word_ocr_groups.html" with hotel=hotel %}
+                    </div>
+                </div>
 
             </div>
         </div>
