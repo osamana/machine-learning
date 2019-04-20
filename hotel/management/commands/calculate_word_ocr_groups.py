@@ -39,6 +39,13 @@ class Command(BaseCommand):
             u'خدم',
             u'انترنت',
             u'غرف',
+            u'سباح',
+            u'نظاف',
+            u'طعام',
+            u'موقع',
+            u'حرارة',
+            u'سعر',
+            u'غرف',
         ]
 
         groups = [1, 2, 3, 4, 5, 6]  # should get this dynamically and from data

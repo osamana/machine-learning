@@ -39,6 +39,13 @@ class Command(BaseCommand):
             u'خدم',
             u'انترنت',
             u'غرف',
+            u'سباح',
+            u'نظاف',
+            u'طعام',
+            u'موقع',
+            u'حرارة',
+            u'سعر',
+            u'غرف',
         ]
 
         for hotel in hotels:
