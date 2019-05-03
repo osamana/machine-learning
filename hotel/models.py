@@ -11,11 +11,11 @@ class RegRequest(models.Model):
     """
     name = models.CharField(verbose_name="Your name", max_length=255, blank=False)
     email = models.EmailField(verbose_name="Email address", max_length=255, blank=False)
+
     # plan, one of three
 
     def __str__(self):
         return "request for {} - {}".format(self.name, self.email)
-
 
 
 class Hotel(models.Model):
