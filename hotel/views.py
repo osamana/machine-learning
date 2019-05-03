@@ -41,6 +41,7 @@ class TopHotelsListView(LoginRequiredMixin, HotelListView):
 
 class WorseHotelsListView(LoginRequiredMixin, HotelListView):
     template_name = "hotels/list/worse_hotels.html"
+    login_url = "/admin/login/"
 
     def get_queryset(self):
         qs = super(WorseHotelsListView, self).get_queryset()

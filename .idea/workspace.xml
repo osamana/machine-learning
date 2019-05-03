@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7f065978-569b-413d-8e8d-ea42c156b2bb" name="Default Changelist" comment="word occurrences calculations">
+    <list default="true" id="7f065978-569b-413d-8e8d-ea42c156b2bb" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/hotel/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/hotel/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/hotel/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/hotel/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel/templates/hotels/list/hotel.html" beforeDir="false" afterPath="$PROJECT_DIR$/hotel/templates/hotels/list/hotel.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/hotel/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hotel/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/hotel/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mlearning/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/mlearning/settings.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -37,11 +30,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/hotel/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="164" lean-forward="true" selection-start-line="164" selection-end-line="164" />
+            <state relative-caret-position="473">
+              <caret line="171" lean-forward="true" selection-start-line="171" selection-end-line="171" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -49,11 +42,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/hotel/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="765">
-              <caret line="51" column="32" selection-start-line="51" selection-start-column="32" selection-end-line="51" selection-end-column="32" />
+            <state relative-caret-position="451">
+              <caret line="44" lean-forward="true" selection-start-line="44" selection-end-line="44" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
@@ -213,11 +206,11 @@
         <option value="$PROJECT_DIR$/hotel/forms.py" />
         <option value="$PROJECT_DIR$/hotel/urls.py" />
         <option value="$PROJECT_DIR$/hotel/templates/base.html" />
-        <option value="$PROJECT_DIR$/hotel/views.py" />
         <option value="$PROJECT_DIR$/mlearning/settings.py" />
         <option value="$PROJECT_DIR$/hotel/templates/hotels/list/hotel.html" />
         <option value="$PROJECT_DIR$/hotel/admin.py" />
         <option value="$PROJECT_DIR$/hotel/models.py" />
+        <option value="$PROJECT_DIR$/hotel/views.py" />
       </list>
     </option>
   </component>
@@ -436,7 +429,7 @@
       <updated>1552327296424</updated>
       <workItem from="1552327298296" duration="66304000" />
       <workItem from="1554417251370" duration="20798000" />
-      <workItem from="1556882396939" duration="8730000" />
+      <workItem from="1556882396939" duration="9525000" />
     </task>
     <task id="LOCAL-00001" summary="calculating rating accuracy">
       <created>1554506231013</created>
@@ -466,11 +459,25 @@
       <option name="project" value="LOCAL" />
       <updated>1555744197904</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="update">
+      <created>1556898604181</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1556898604181</updated>
+    </task>
+    <task id="LOCAL-00006" summary="update">
+      <created>1556898647651</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1556898647651</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="95832000" />
+    <option name="totallyTimeSpent" value="96627000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -485,12 +492,12 @@
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21306472" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21306472" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4993895" visible="true" weight="0.14795919" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4993895" visible="true" weight="0.14795919" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4993895" weight="0.7367347" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -517,7 +524,8 @@
     <MESSAGE value="updated settings" />
     <MESSAGE value="major update" />
     <MESSAGE value="word occurrences calculations" />
-    <option name="LAST_COMMIT_MESSAGE" value="word occurrences calculations" />
+    <MESSAGE value="update" />
+    <option name="LAST_COMMIT_MESSAGE" value="update" />
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateExpression">
@@ -866,16 +874,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hotel/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="765">
-          <caret line="51" column="32" selection-start-line="51" selection-start-column="32" selection-end-line="51" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mlearning/settings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="783">
@@ -916,10 +914,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/hotel/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="164" lean-forward="true" selection-start-line="164" selection-end-line="164" />
+        <state relative-caret-position="473">
+          <caret line="171" lean-forward="true" selection-start-line="171" selection-end-line="171" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hotel/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="451">
+          <caret line="44" lean-forward="true" selection-start-line="44" selection-end-line="44" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
           </folding>
         </state>
       </provider>
