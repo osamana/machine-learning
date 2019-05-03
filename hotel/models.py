@@ -4,10 +4,25 @@ from django.urls import reverse
 from picklefield.fields import PickledObjectField
 
 
+class RegRequest(models.Model):
+    """
+    this represents a request of registration, this gets sent to us and then
+    we create an account manually and sent via email
+    """
+    name = models.CharField(verbose_name="Your name", max_length=255, blank=False)
+    email = models.EmailField(verbose_name="Email address", max_length=255, blank=False)
+    # plan, one of three
+
+    def __str__(self):
+        return "request for {} - {}".format(self.name, self.email)
+
+
+
 class Hotel(models.Model):
     """Declaration of the Hotel object."""
 
     name = models.CharField(max_length=255)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, verbose_name="User", blank=True, null=True)
 
     rating = models.FloatField(default=0.0)  # calculated recurrently, normalized
     avg_members_per_stay = models.FloatField(default=0.0)  # calculated recurrently
@@ -98,11 +113,13 @@ class Hotel(models.Model):
         stays = self.reviews.count()  # same number as reviews (each review record is a stay)
 
         # accuracy by nights
-        abn = (float(self.nights) - float(data['min_hotel_nights'])) / (float(data['max_hotel_nights']) - float(data['min_hotel_nights']))
+        abn = (float(self.nights) - float(data['min_hotel_nights'])) / (
+                float(data['max_hotel_nights']) - float(data['min_hotel_nights']))
         abn *= 100.0
 
         # accuracy by residences
-        abr = (float(self.residences) - float(data['min_hotel_residences'])) / (float(data['max_hotel_residences']) - float(data['min_hotel_residences']))
+        abr = (float(self.residences) - float(data['min_hotel_residences'])) / (
+                float(data['max_hotel_residences']) - float(data['min_hotel_residences']))
         abr *= 100.0
 
         # combined accuracy
@@ -131,6 +148,10 @@ class HotelMessage(models.Model):
     hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
     subject = models.CharField(verbose_name="Message Subject", max_length=255, blank=False)
     body = models.TextField(verbose_name="Body", blank=False)
+
+    def __str__(self):
+        return "message ({}) to hotel {}".format(self.subject, self.hotel)
+
 
 class Review(models.Model):
     rating = models.SmallIntegerField(verbose_name="Rating", blank=False, null=False)

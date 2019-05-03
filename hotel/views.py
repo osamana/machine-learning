@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from django.views.generic import DetailView, ListView, RedirectView, UpdateView, CreateView, FormView, TemplateView
-from .models import Hotel, Review, Post, HotelMessage
-from .forms import AddReviewForm, PostAddFrom, TestTextForm, SendMessageForm
+from .models import Hotel, Review, Post, HotelMessage, RegRequest
+from .forms import AddReviewForm, PostAddFrom, TestTextForm, SendMessageForm, RegRequestForm
 from django.shortcuts import redirect
 import fasttext
 from django.conf import settings
 import os
 from django.contrib import messages
+from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 
 from django.urls import reverse
 
@@ -22,9 +23,15 @@ class HotelListView(ListView):
     paginate_by = 50
     model = Hotel
 
+    def get_context_data(self, **kwargs):
+        context = super(HotelListView, self).get_context_data(**kwargs)
+        context['registration_request_form'] = RegRequestForm()
+        return context
 
-class TopHotelsListView(HotelListView):
+
+class TopHotelsListView(LoginRequiredMixin, HotelListView):
     template_name = "hotels/list/top_hotels.html"
+    login_url = "/admin/login/"
 
     def get_queryset(self):
         qs = super(TopHotelsListView, self).get_queryset()
@@ -32,7 +39,7 @@ class TopHotelsListView(HotelListView):
         return qs.order_by('-rating')
 
 
-class WorseHotelsListView(HotelListView):
+class WorseHotelsListView(LoginRequiredMixin, HotelListView):
     template_name = "hotels/list/worse_hotels.html"
 
     def get_queryset(self):
@@ -41,7 +48,7 @@ class WorseHotelsListView(HotelListView):
         return qs.order_by('rating')
 
 
-class HotelDetailView(DetailView):
+class HotelDetailView(LoginRequiredMixin, DetailView):
     http_method_names = [u'get']
     template_name = "hotels/detail/hotel.html"
     context_object_name = "hotel"
@@ -56,9 +63,12 @@ class HotelDetailView(DetailView):
         return context
 
 
-class AdministrationView(TemplateView):
+class AdministrationView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
     http_method_names = [u'get']
     template_name = "hotels/admin.html"
+
+    def test_func(self):
+        return self.request.user.is_superuser
 
     def get_context_data(self, **kwargs):
         context = super(AdministrationView, self).get_context_data(**kwargs)
@@ -116,6 +126,30 @@ def contact_hotel(request):
 
             # redirect to a new URL:
             return redirect(target_hotel)
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = SendMessageForm()
+
+    return redirect("hotel-list")
+
+
+def registration_request(request):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = RegRequestForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            RegRequest.objects.create(
+                name=form.cleaned_data["name"],
+                email=form.cleaned_data["email"],
+            )
+            messages.add_message(request, messages.SUCCESS,
+                                 'Your request was submitted, we will contact you soon. Thanks.')
+
+            # redirect to a new URL:
+            return redirect("hotel-list")
 
     # if a GET (or any other method) we'll create a blank form
     else:

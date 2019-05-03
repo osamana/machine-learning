@@ -30,14 +30,19 @@
         <div class="sidebar-heading">Machine Learning Project</div>
         <div class="list-group list-group-flush">
             <a href="{% url "hotel-list" %}" class="list-group-item list-group-item-action bg-light"><i
-                    class="fas fa-list-ul"></i> Hotels List</a>
-            <a href="{% url "post-list" %}" class="list-group-item list-group-item-action bg-light">Social media
-                (Demo)</a>
-            <a href="{% url "admin-portal" %}" class="list-group-item list-group-item-action bg-light"><i
-                    class="fas fa-lock"></i> Administration</a>
+                    class="fas fa-list-ul"></i> Home</a>
+{#            <a href="{% url "post-list" %}" class="list-group-item list-group-item-action bg-light">Social media#}
+{#                (Demo)</a>#}
+            {% if request.user.is_superuser %}
+                <a href="{% url "admin-portal" %}" class="list-group-item list-group-item-action bg-light"><i
+                        class="fas fa-lock"></i> Administration</a>
+            {% endif %}
+
             <a href="{% url "top-hotels" %}" class="list-group-item list-group-item-action bg-light"><i
                     class="fas fa-star"></i> Best Hotels</a>
             <a href="{% url "worse-hotels" %}" class="list-group-item list-group-item-action bg-light">Worse Hotels</a>
+            <a href="/admin/" class="list-group-item list-group-item-action bg-light"><i class="fas fa-chevron-left"></i> Backend Site</a>
+            {#            <a href="{% url "registration-request" %}" class="list-group-item list-group-item-action bg-light">Registration</a>#}
         </div>
     </div>
     <!-- /#sidebar-wrapper -->

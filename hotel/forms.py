@@ -61,3 +61,19 @@ class SendMessageForm(forms.ModelForm):
 
         for f in self.fields:
             self.fields[f].widget.attrs['class'] = 'form-control'
+
+
+class RegRequestForm(forms.ModelForm):
+    class Meta:
+        model = models.RegRequest
+        fields = "__all__"
+        widgets = {
+            # 'hotel': forms.Select(attrs={'class': 'form-control'}),
+
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(RegRequestForm, self).__init__(*args, **kwargs)
+
+        for f in self.fields:
+            self.fields[f].widget.attrs['class'] = 'form-control'
