@@ -19,6 +19,6 @@ urlpatterns = [
     # path('weblog/', include('blog.urls')),
 ]
 
-admin.site.site_header = 'Project administration'  # default: "Django Administration"
-admin.site.index_title = 'Project administration'  # default: "Site administration"
-admin.site.site_title = 'Project administration'  # default: "Django site admin"
+admin.site.site_header = 'Hotel Feedback Analysis'  # default: "Django Administration"
+admin.site.index_title = 'Backend Site'  # default: "Site administration"
+admin.site.site_title = 'Hotel Feedback Analysis'  # default: "Django site admin"
